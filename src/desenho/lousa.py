@@ -43,6 +43,7 @@ def gen_frames(camera_id):
                         if x != 0 and ax != 0:
                             cv2.line(img, (x, y), (ax, ay), (255, 0, 0), 20)
 
+            img = cv2.flip(img, 1)
             ret, buffer = cv2.imencode('.jpg', img)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'

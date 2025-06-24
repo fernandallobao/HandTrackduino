@@ -25,6 +25,13 @@ function loadContent(id) {
             document.getElementById('content').innerHTML = html;
         });
     }
+    else if (id === 4) {
+        fetch('/libras')
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('content').innerHTML = html;
+        });
+    }
     else {
         fetch(`/conteudo/${id}`)
         .then(response => response.json())

@@ -4,6 +4,7 @@ from services.cameras.camera import listar_cameras_disponiveis
 from services.github import get_cards
 from src.robo.arduino import gen_arduino_frames
 from src.desenho.lousa import gen_frames
+from libras.libras.libras import gen_libras
 
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    visoes = ['Robô', 'Desenho']
+    visoes = ['Robô', 'Lousa', 'Lousa']
     cards_data = get_cards()
     return render_template('index.html', visoes=visoes, cards=cards_data)
 
@@ -20,6 +21,10 @@ def index():
 def lousa():
     return render_template('lousa.html')
 
+
+@app.route('/video_libras')
+def video_libras():
+    return Response(gen_libras(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/arduino')
 def arduino():
