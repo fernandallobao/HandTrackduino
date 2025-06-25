@@ -1,3 +1,4 @@
+from services.cameras.camera_manager import CameraManager
 import cv2
 import mediapipe as mp
 import tensorflow as tf
@@ -19,7 +20,7 @@ mpDraw = mp.solutions.drawing_utils
 
 def gen_libras():
     # Captura da câmera
-    cap = cv2.VideoCapture(0)
+    cap = CameraManager.get_instance()
 
     while True:
         ret, img = cap.read()
