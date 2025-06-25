@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    visoes = ['Robô', 'Lousa', 'Lousa']
+    visoes = ['Robô', 'Lousa', 'Libras']
     cards_data = get_cards()
     return render_template('index.html', visoes=visoes, cards=cards_data)
 
