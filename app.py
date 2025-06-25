@@ -4,7 +4,7 @@ from services.cameras.camera import listar_cameras_disponiveis
 from services.github import get_cards
 from src.robo.arduino import gen_arduino_frames
 from src.desenho.lousa import gen_frames
-from libras.libras.libras import gen_libras
+from src.libras.libras import gen_libras
 
 
 app = Flask(__name__)
@@ -21,10 +21,9 @@ def index():
 def lousa():
     return render_template('lousa.html')
 
-
-@app.route('/video_libras')
-def video_libras():
-    return Response(gen_libras(),mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/libras')
+def libras():
+    return render_template('libras.html')
 
 @app.route('/arduino')
 def arduino():
@@ -58,6 +57,10 @@ def video_lousa(camera_index):
 @app.route('/video_arduino/<int:camera_index>')
 def video_arduino(camera_index):
     return Response(gen_arduino_frames(camera_index),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_libras/<int:camera_index>')
+def video_libras(camera_index):
+    return Response(gen_libras(camera_index),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == '__main__':

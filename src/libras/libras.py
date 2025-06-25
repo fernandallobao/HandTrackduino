@@ -12,13 +12,12 @@ model = tf.keras.models.load_model(model_path)
 # Lista de classes previstas pelo seu modelo (ajuste conforme seu modelo)
 classes = ['A', 'E', 'I', 'O', 'U']
 
-#Inicializa o Mediapipe
+# Inicializa o Mediapipe
 mpHands = mp.solutions.hands
 hands = mpHands.Hands(max_num_hands=1)
 mpDraw = mp.solutions.drawing_utils
 
 def gen_libras():
-
     # Captura da câmera
     cap = cv2.VideoCapture(0)
 
@@ -76,15 +75,11 @@ def gen_libras():
                         cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
             print(f"Letra detectada: {letra}")
 
-        cv2.imshow("Detector por IA de Libras", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-
+        # Codifica a imagem para streaming HTTP
         ret, buffer = cv2.imencode('.jpg', img)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
     cap.release()
-    cv2.destroyAllWindows()
+
