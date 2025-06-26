@@ -23,8 +23,8 @@ def gen_libras():
     cap = CameraManager.get_instance()
 
     while True:
-        ret, img = cap.read()
-        if not ret:
+        img = cap.get_frame()
+        if img is None:
             break
 
         img = cv2.flip(img, 1)
